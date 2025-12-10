@@ -25,6 +25,8 @@ class EmbeddingService:
 class GPTService:
     """Service for GPT operations: summarization, tagging, idea generation"""
     
+    MAX_TAGS = 5
+    
     def __init__(self):
         self.llm = ChatOpenAI(
             openai_api_key=settings.OPENAI_API_KEY,
@@ -62,7 +64,7 @@ Tags:"""
         chain = LLMChain(llm=self.llm, prompt=prompt)
         result = await chain.arun(content=content)
         tags = [tag.strip() for tag in result.strip().split(',')]
-        return tags[:5]
+        return tags[:self.MAX_TAGS]
     
     async def generate_ideas(self, topic: str, context: str = "") -> str:
         """Generate ideas based on a topic and optional context"""

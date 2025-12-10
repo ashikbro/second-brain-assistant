@@ -127,12 +127,15 @@ class NoteService:
         )
         
         # Format results
+        # Note: ChromaDB returns distances which we convert to similarity scores.
+        # For cosine distance, similarity = 1 - distance, where distance is in [0, 2].
+        # A distance of 0 means identical vectors (similarity 1.0).
         search_results = []
         if results['ids'] and results['ids'][0]:
             for i, note_id in enumerate(results['ids'][0]):
                 note = self.notes_db.get(note_id)
                 if note:
-                    similarity_score = 1 - results['distances'][0][i]  # Convert distance to similarity
+                    similarity_score = 1 - results['distances'][0][i]
                     search_results.append(
                         SearchResult(note=note, similarity_score=similarity_score)
                     )

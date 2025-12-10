@@ -2,6 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 import { graphService } from '../services/api';
 
+const GRAPH_WIDTH = 800;
+const GRAPH_HEIGHT = 600;
+const MIN_STROKE_WIDTH = 2;
+const MAX_STROKE_WIDTH = 5;
+
 const KnowledgeGraph = () => {
   const svgRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -29,15 +34,13 @@ const KnowledgeGraph = () => {
 
   const renderGraph = (data) => {
     const svg = d3.select(svgRef.current);
-    const width = 800;
-    const height = 600;
 
     svg.selectAll('*').remove();
 
     if (!data.nodes || data.nodes.length === 0) {
       svg.append('text')
-        .attr('x', width / 2)
-        .attr('y', height / 2)
+        .attr('x', GRAPH_WIDTH / 2)
+        .attr('y', GRAPH_HEIGHT / 2)
         .attr('text-anchor', 'middle')
         .style('font-size', '16px')
         .style('fill', '#666')
@@ -45,14 +48,14 @@ const KnowledgeGraph = () => {
       return;
     }
 
-    svg.attr('width', width).attr('height', height);
+    svg.attr('width', GRAPH_WIDTH).attr('height', GRAPH_HEIGHT);
 
     const simulation = d3.forceSimulation(data.nodes)
       .force('link', d3.forceLink(data.relationships)
         .id(d => d.id)
         .distance(100))
       .force('charge', d3.forceManyBody().strength(-300))
-      .force('center', d3.forceCenter(width / 2, height / 2));
+      .force('center', d3.forceCenter(GRAPH_WIDTH / 2, GRAPH_HEIGHT / 2));
 
     const link = svg.append('g')
       .selectAll('line')
@@ -60,7 +63,7 @@ const KnowledgeGraph = () => {
       .enter().append('line')
       .attr('stroke', '#999')
       .attr('stroke-opacity', 0.6)
-      .attr('stroke-width', d => Math.min(d.weight * 2, 5));
+      .attr('stroke-width', d => Math.min(d.weight * MIN_STROKE_WIDTH, MAX_STROKE_WIDTH));
 
     const node = svg.append('g')
       .selectAll('g')

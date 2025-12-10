@@ -1,6 +1,8 @@
 import React from 'react';
 import { noteService } from '../services/api';
 
+const PREVIEW_LENGTH = 150;
+
 const NoteCard = ({ note, onEdit, onDelete, showScore }) => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this note?')) {
@@ -17,7 +19,7 @@ const NoteCard = ({ note, onEdit, onDelete, showScore }) => {
     <div className="note-card">
       <h3>{note.title}</h3>
       {note.summary && <p style={{ fontStyle: 'italic', color: '#888' }}>{note.summary}</p>}
-      <p>{note.content.substring(0, 150)}{note.content.length > 150 ? '...' : ''}</p>
+      <p>{note.content.substring(0, PREVIEW_LENGTH)}{note.content.length > PREVIEW_LENGTH ? '...' : ''}</p>
       
       {showScore && (
         <div style={{ marginBottom: '0.5rem', color: '#667eea' }}>
