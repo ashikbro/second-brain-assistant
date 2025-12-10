@@ -10,5 +10,5 @@ pydantic==2.5.0
 pydantic-settings==2.1.0
 numpy==1.26.2
 tiktoken==0.5.2
-python-multipart==0.0.6
+python-multipart==0.0.18
 aiofiles==23.2.1
