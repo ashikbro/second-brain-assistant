@@ -76,8 +76,8 @@ const NotesPage = () => {
       ) : (
         <div className="notes-grid">
           {displayNotes.map((item) => {
-            const note = item.note || item;
-            const score = item.similarity_score;
+            const note = searchResults !== null ? item.note : item;
+            const score = searchResults !== null ? item.similarity_score : undefined;
             return (
               <NoteCard 
                 key={note.id} 

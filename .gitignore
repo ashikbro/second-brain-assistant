@@ -17,6 +17,7 @@ node_modules/
 dist/
 build/
 *.log
+frontend/.env
 
 # IDE
 .vscode/
