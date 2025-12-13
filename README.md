@@ -74,7 +74,13 @@ note1 = Note(
     content="Introduction to ML concepts",
     tags=["ai", "ml"]
 )
-note_id = kg.add_note(note1)
+note2 = Note(
+    title="Deep Learning",
+    content="Advanced ML with neural networks",
+    tags=["ai", "deep-learning"]
+)
+note_id_1 = kg.add_note(note1)
+note_id_2 = kg.add_note(note2)
 
 # Search for notes
 search = SemanticSearch(kg)

@@ -23,14 +23,17 @@ class SemanticSearch:
         Returns:
             List of (Note, similarity_score) tuples
         """
+        import heapq
+        
         results = []
         
         for note in self.knowledge_graph.notes.values():
             score = self._calculate_similarity(query, note)
-            results.append((note, score))
+            if score > 0:
+                results.append((note, score))
         
-        results.sort(key=lambda x: x[1], reverse=True)
-        return results[:top_k]
+        # Use heapq for efficient top-k selection
+        return heapq.nlargest(top_k, results, key=lambda x: x[1])
     
     def _calculate_similarity(self, query: str, note: Note) -> float:
         """
