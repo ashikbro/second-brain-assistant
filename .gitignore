@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.venv/
+__pycache__/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.db
+data/
+models/
+.DS_Store
+.vscode/
