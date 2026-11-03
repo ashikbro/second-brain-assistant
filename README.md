@@ -5,10 +5,11 @@ connecting ideas, searching knowledge semantically, and generating summaries.
 
 ## Status
 
-**Foundation stage — local-first notes and search are implemented.**
+**Foundation stage — local-first notes, search, links, and export are implemented.**
 
 The repository includes a dependency-free SQLite note store with CRUD,
-archiving, tags, deterministic full-text search, and Markdown/JSON export.
+archiving, tags, deterministic search, note-to-note links, related-note
+traversal, and Markdown/JSON export.
 Embeddings, authentication, and hosted AI providers are intentionally not
 implemented yet.
 
@@ -40,8 +41,8 @@ content as an independently verified fact.
 ## Roadmap
 
 1. Scaffold the web client and API with health checks.
-2. Add note CRUD, tags, links, and database migrations.
-3. Add deterministic full-text search before semantic search.
+2. Add note CRUD, tags, links, and database migrations. **(store complete)**
+3. Add deterministic full-text search before semantic search. **(store complete)**
 4. Add background embedding jobs and related-note suggestions.
 5. Add source-linked summaries, export, tests, and deployment.
 
@@ -59,3 +60,8 @@ python -m venv .venv
 .venv/bin/pip install pytest
 PYTHONPATH=src .venv/bin/pytest
 ```
+
+The store API supports `create`, `update`, `archive`, `search`, `link`,
+`related`, `export_json`, `export_markdown`, and `export_all_json`. Links are
+directed for export but traversed in either direction when finding related
+notes. SQLite foreign keys are enabled and deleting a note removes its links.
