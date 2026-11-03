@@ -24,3 +24,23 @@ def test_empty_title_is_rejected():
         assert "title" in str(exc)
     else:
         raise AssertionError("empty title was accepted")
+
+
+def test_links_related_notes_and_graph_export():
+    store = NoteStore()
+    source = store.create("Source", "Research notes")
+    target = store.create("Target", "Follow-up notes")
+    distant = store.create("Distant", "Another connected note")
+
+    assert store.link(source.id, target.id, "  supports   ") .label == "supports"
+    store.link(target.id, distant.id)
+    assert [note.id for note in store.related(source.id)] == [target.id]
+    assert [note.id for note in store.related(source.id, depth=2)] == [target.id, distant.id]
+    assert '"source_id": %d' % source.id in store.export_all_json()
+
+    try:
+        store.link(source.id, source.id)
+    except ValueError as exc:
+        assert "itself" in str(exc)
+    else:
+        raise AssertionError("self-link was accepted")
