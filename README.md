@@ -61,6 +61,23 @@ python -m venv .venv
 PYTHONPATH=src .venv/bin/pytest
 ```
 
+## Showcase front end
+
+The `web/` directory contains a dependency-free browser showcase with seeded
+example notes. It demonstrates search, tag filtering, note editing, archiving,
+linked ideas, a knowledge graph, and JSON/Markdown-ready note workflows using
+browser local storage.
+
+Run it locally:
+
+```sh
+python -m http.server 8000 --directory web
+```
+
+Then open <http://localhost:8000>. Use **Reset demo data** in the sidebar to
+restore the showcase content. The UI is intentionally local-only until the
+planned API and authentication layers are added.
+
 The store API supports `create`, `update`, `archive`, `search`, `link`,
 `related`, `export_json`, `export_markdown`, and `export_all_json`. Links are
 directed for export but traversed in either direction when finding related
