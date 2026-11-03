@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A local-first knowledge workspace for notes, links, and ideas.">
+    <title>Second Brain Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">✦</div>
+          <div><strong>Second Brain</strong><span>Local knowledge workspace</span></div>
+        </div>
+        <button class="new-note button-primary" id="new-note">＋ New note</button>
+        <nav class="nav" aria-label="Primary">
+          <button class="nav-item active" data-view="notes"><span>▤</span> Notes <b id="note-count">0</b></button>
+          <button class="nav-item" data-view="graph"><span>◎</span> Knowledge graph</button>
+          <button class="nav-item" data-view="archive"><span>□</span> Archive</button>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="status-dot"></span>
+          Local-only workspace
+          <button class="icon-button" id="reset-demo" title="Reset demo data" aria-label="Reset demo data">↺</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="kicker">Your thinking, connected</p>
+            <h1 id="page-title">Notes</h1>
+          </div>
+          <label class="search">
+            <span>⌕</span>
+            <input id="search" type="search" placeholder="Search notes, ideas, tags..." autocomplete="off">
+            <kbd>⌘ K</kbd>
+          </label>
+        </header>
+
+        <section class="content" id="notes-view">
+          <div class="toolbar">
+            <div class="filter-tabs" role="tablist" aria-label="Note filters">
+              <button class="filter active" data-filter="all">All notes</button>
+              <button class="filter" data-filter="recent">Recently edited</button>
+              <button class="filter" data-filter="linked">Linked</button>
+            </div>
+            <select id="tag-filter" aria-label="Filter by tag"><option value="">All tags</option></select>
+          </div>
+          <div class="workspace-grid">
+            <section class="note-list" id="note-list" aria-live="polite"></section>
+            <aside class="editor-panel" id="editor-panel">
+              <div class="empty-editor">
+                <div class="empty-icon">✎</div>
+                <h2>Select a note</h2>
+                <p>Choose an idea from your library or create a new note to start building your second brain.</p>
+                <button class="button-secondary" id="empty-new">Create your first note</button>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="content hidden" id="graph-view">
+          <div class="section-heading">
+            <div><p class="kicker">Connections</p><h2>Knowledge graph</h2><p class="muted">Explore how your ideas support and influence each other.</p></div>
+            <span class="pill" id="graph-count">0 connections</span>
+          </div>
+          <div class="graph-card"><svg id="graph" role="img" aria-label="Knowledge graph"></svg></div>
+          <div class="graph-legend"><span><i class="legend-dot violet"></i> Note</span><span><i class="legend-line"></i> Linked idea</span></div>
+        </section>
+
+        <section class="content hidden" id="archive-view">
+          <div class="section-heading"><div><p class="kicker">Out of sight, not forgotten</p><h2>Archive</h2><p class="muted">Notes you have set aside for later.</p></div></div>
+          <div class="archive-list" id="archive-list"></div>
+        </section>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
