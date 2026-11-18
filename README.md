@@ -1,59 +1,20 @@
 # Second Brain Assistant
 
-An AI-assisted personal knowledge-management system for capturing notes,
-connecting ideas, searching knowledge semantically, and generating summaries.
+**Personal knowledge management system** for capturing notes, linking ideas, searching, and exporting — local-first.
 
-## Status
+Foundation stage: notes, tags, links, deterministic search, and export are working.
 
-**Foundation stage — local-first notes, search, links, and export are implemented.**
-
-The repository includes a dependency-free SQLite note store with CRUD,
-archiving, tags, deterministic search, note-to-note links, related-note
-traversal, and Markdown/JSON export.
-Embeddings, authentication, and hosted AI providers are intentionally not
-implemented yet.
-
-## First-release scope
+## What it does now
 
 - Create, edit, archive, and tag notes
-- Store links and attach them to notes
-- Full-text search with filters for tags and dates
-- Related-note suggestions based on embeddings
-- Knowledge-graph view of note relationships
-- AI summaries with visible source-note references
-- Export notes as Markdown and JSON
+- Note-to-note links and related-note traversal
+- Deterministic full-text search (tags + dates)
+- Markdown and JSON export
+- Dependency-free SQLite store
 
-## Recommended architecture
+Embeddings, authentication, and hosted AI are intentionally not implemented yet.
 
-```text
-web/                 Web client and note editor
-api/                 Authentication and note/search APIs
-worker/              Embedding and summary jobs
-db/                  Relational schema and migrations
-docs/                Architecture and threat model
-```
-
-Use a provider abstraction for embeddings and language models so local or
-hosted providers can be selected without changing application code. Store
-source references with every generated summary and never present generated
-content as an independently verified fact.
-
-## Roadmap
-
-1. Scaffold the web client and API with health checks.
-2. Add note CRUD, tags, links, and database migrations. **(store complete)**
-3. Add deterministic full-text search before semantic search. **(store complete)**
-4. Add background embedding jobs and related-note suggestions.
-5. Add source-linked summaries, export, tests, and deployment.
-
-## Non-functional requirements
-
-- Encrypt credentials and never commit API keys.
-- Apply per-user authorization to every note and search operation.
-- Make deletion and export user-accessible.
-- Add automated tests for search, authorization, and summary provenance.
-
-## Development
+## Quick start
 
 ```sh
 python -m venv .venv
@@ -61,24 +22,14 @@ python -m venv .venv
 PYTHONPATH=src .venv/bin/pytest
 ```
 
-## Showcase front end
+## Browser showcase
 
-The `web/` directory contains a dependency-free browser showcase with seeded
-example notes. It demonstrates search, tag filtering, note editing, archiving,
-linked ideas, a knowledge graph, and JSON/Markdown-ready note workflows using
-browser local storage.
-
-Run it locally:
+Local-only demo in `web/`:
 
 ```sh
 python -m http.server 8000 --directory web
 ```
 
-Then open <http://localhost:8000>. Use **Reset demo data** in the sidebar to
-restore the showcase content. The UI is intentionally local-only until the
-planned API and authentication layers are added.
+## Keywords
 
-The store API supports `create`, `update`, `archive`, `search`, `link`,
-`related`, `export_json`, `export_markdown`, and `export_all_json`. Links are
-directed for export but traversed in either direction when finding related
-notes. SQLite foreign keys are enabled and deleting a note removes its links.
+second brain · knowledge management · notes · local-first · python · search · personal knowledge
